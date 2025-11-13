@@ -265,7 +265,7 @@ const ChatInput = ({ onSend, disabled }) => {
             </div>
           )}
           {contextChips.length < 1 && (
-            <Chip iconName="search-ai-bold" color="slate" label="Site-wide search"></Chip>
+            <Chip iconName="search-ai-bold" color="slate" label=""></Chip>
           )}
 
           {/* Text Input with Loading Spinner */}
@@ -307,7 +307,7 @@ const ChatInput = ({ onSend, disabled }) => {
           <div className="flex justify-end items-center gap-2 -mr-1">
             <Button
               type="button"
-              variant="tertiary"
+              variant="secondary"
               prefixIcon='microphone-bold'
               onClick={handleMicClick}
               disabled={disabled || isProcessing}
@@ -321,8 +321,8 @@ const ChatInput = ({ onSend, disabled }) => {
             {!micButtonActive && (
               <Button
                 type="submit"
-                variant='tertiary'
-                prefixIcon='send-bold'
+                variant='secondary'
+                prefixIcon='next-bold'
                 disabled={disabled || !getDisplayValue().trim()}
                 aria-label="Send message"
               />
@@ -333,7 +333,7 @@ const ChatInput = ({ onSend, disabled }) => {
 
       {/* Disclaimer Caption */}
       <div className="text-[0.75rem] max-h-[16px] text-gray-500 text-center mt-1">
-        <p>Assistant can make mistakes. Verify responses.</p>
+        <p>Always verify assistant  responses.</p>
       </div>
     </form>
   );

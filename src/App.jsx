@@ -12,7 +12,7 @@ import ReactMarkdown from 'react-markdown'  // install via: npm install react-ma
 // Momentum Design CSS is now imported in index.css to ensure proper order
 import { ThemeProvider, IconProvider, Icon, Button } from '@momentum-design/components/react'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://llm.kristiantalley.com'
 
 function App() {
   const [messages, setMessages] = useState([

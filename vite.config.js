@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
@@ -108,48 +108,44 @@ function rewriteDynamicImportsRollup({packageName}) {
   }
 }
 
-export default defineConfig(({ mode }) => {
-  // Load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, process.cwd(), '')
-
-  return {
-    plugins: [
-      react(),
-      tailwindcss(), // Keep Tailwind CSS v4 plugin
-    ],
-    optimizeDeps: {
-      esbuildOptions: {
-        plugins: [
-          rewriteDynamicImportsEsbuild({packageName: 'brand-visuals'}), 
-          rewriteDynamicImportsEsbuild({packageName: 'icons'}),
-        ],
-      },
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(), // Keep Tailwind CSS v4 plugin
+  ],
+  optimizeDeps: {
+    esbuildOptions: {
+      plugins: [
+        rewriteDynamicImportsEsbuild({packageName: 'brand-visuals'}), 
+        rewriteDynamicImportsEsbuild({packageName: 'icons'}),
+      ],
     },
-    build: {
-      rollupOptions: {
-        plugins: [
-          rewriteDynamicImportsRollup({packageName: 'brand-visuals'}), 
-          rewriteDynamicImportsRollup({packageName: 'icons'}),
-          rewriteDynamicImportsRollup({packageName: 'animations'}),
-          dynamicImportVars({
-            exclude: ['node_modules/@momentum-design/animations/**'],
-            warnOnError: true,
-          }),
-        ],
-      }
-    },
-    base: '/projects/chat/', // important for sub-folder deployment
-    server: {
-      host: true, // if you still run dev server remotely
-      port: 3000,
-      proxy: {
-        '/api': {
-          target: env.VITE_API_PROXY_TARGET,
-          changeOrigin: true,
-          secure: true,
-          rewrite: (path) => path.replace(/^\/api/, '/api')
-        }
+  },
+  build: {
+    rollupOptions: {
+      plugins: [
+        rewriteDynamicImportsRollup({packageName: 'brand-visuals'}), 
+        rewriteDynamicImportsRollup({packageName: 'icons'}),
+        rewriteDynamicImportsRollup({packageName: 'animations'}),
+        dynamicImportVars({
+          exclude: ['node_modules/@momentum-design/animations/**'],
+          warnOnError: true,
+        }),
+      ],
+    }
+  },
+  base: '/projects/chat/', // important for sub-folder deployment
+  server: {
+    host: true, // if you still run dev server remotely
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'https://llm.kristiantalley.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
       }
     }
   }
 })
+
