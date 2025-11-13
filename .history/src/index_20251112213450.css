@@ -1,0 +1,41 @@
+/* Import Momentum Design tokens FIRST - before Tailwind */
+/* This ensures Momentum Design CSS variables are available before Tailwind processes */
+@import '@momentum-design/tokens/dist/css/typography/complete.css';
+@import '@momentum-design/tokens/dist/css/effect/complete.css';
+@import '@momentum-design/tokens/dist/css/theme/webex/dark-stable.css';
+@import '@momentum-design/tokens/dist/css/theme/webex/light-stable.css';
+@import '@momentum-design/fonts/dist/css/fonts.css';
+
+/* Tailwind CSS v4 - using @import syntax */
+@import "tailwindcss";
+
+main {
+    height: 100%;
+    width: 100%;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    opacity: 0.9;
+    /* Gradient background for light mode */
+    background: radial-gradient(96.34% 74.79% at 0% -7%, rgba(245, 88, 104, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%), 
+                 radial-gradient(78.98% 75.01% at 53.73% -5.7%, rgba(17, 112, 207, 0.60) 0%, rgba(17, 112, 207, 0.21) 41.65%, rgba(0, 0, 0, 0.00) 100%), 
+                 var(--mds-color-theme-background-solid-primary-normal, #ffffff);
+    /* Ensure background covers entire viewport */
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.background-base {
+    height: 100%;
+    width: 100%;
+    background: var(--mds-color-theme-background-solid-primary-normal, #ffffff);
+}
+
+/* Ensure Momentum Design CSS variables take precedence */
+:root {
+    /* Light mode color scheme */
+    color-scheme: light;
+}
